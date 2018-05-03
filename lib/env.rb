@@ -2,6 +2,7 @@ require 'selenium-webdriver'
 
 def setup
   @driver = Selenium::WebDriver.for :firefox
+  @driver.manage.window.maximize
   # Selenium::WebDriver.logger.level = :debug
   ENV['base_url'] = 'https://www.upwork.com'
 end

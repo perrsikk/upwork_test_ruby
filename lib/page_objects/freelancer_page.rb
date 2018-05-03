@@ -46,7 +46,6 @@ class FreelancerPage < Base
   end
 
   def is_freelancer_data_equal?
-    get_freelancers_info
     name = text_of NAME
     @info_arr.each do |hash|
       if hash['name'] == name
