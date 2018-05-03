@@ -8,7 +8,7 @@ class Base
     @driver = driver
   end
 
-  def visit(url='/')
+  def visit(url='')
     driver.get(ENV['base_url'] + url)
   end
 

@@ -10,7 +10,7 @@ class SearchResultsPage < Base
   FREELANCER_TITLE = { css: 'h4[data-qa="tile_title"]' }
   FREELANCER_OVERVIEW = { class: 'freelancer-tile-description' }
   FREELANCER_SKILLS = { css: '[data-log-label="tile_skill"] span' }
-  FREELANCER_BOX = { css: '[data-qa="freelancer"]' }
+  FREELANCER_LINKS = { css: 'h4 .freelancer-tile-name' }
 
   def initialize(driver)
     super
@@ -18,10 +18,12 @@ class SearchResultsPage < Base
   end
 
   def get_freelancers_info
-    wait_for { displayed? FREELANCERS }
+    wait(3)
+
     @info_arr = []
     skills_arr = []
 
+    wait_for { displayed? FREELANCERS }
     arr = find_all FREELANCERS
 
     arr.each { |freelancer|
@@ -64,13 +66,18 @@ class SearchResultsPage < Base
   end
 
   def open_random_freelancer
-    length = @info_arr.length
+    # wait_for { displayed? FREELANCER_NAMES }
+
+    links = find_all FREELANCER_LINKS
+    length = links.length
     num = rand(1..length)
     puts "num: #{num}"
-    wait_for { displayed? FREELANCER_BOX }
-    freelancer_box = find FREELANCER_BOX
-    rand_freelancer = freelancer_box.find_element(:css => ":nth-child(#{num}) .freelancer-tile-name")
-    rand_freelancer.click
+
+
+    # freelancer_box = find FREELANCER_BOX
+    # rand_freelancer = freelancer_box.find_element(:css => ":nth-child(#{num}) .freelancer-tile-name")
+    # wait_for { displayed? rand_freelancer }
+    links[num].click
   end
 
   private

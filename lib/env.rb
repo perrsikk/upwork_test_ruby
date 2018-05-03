@@ -1,6 +1,10 @@
 require 'selenium-webdriver'
 
 def setup
+  # server = Selenium::Server.get :latest
+  # server.start
+  # @driver = Selenium::WebDriver.for :remote, desired_capabilities: :firefox
+
   @driver = Selenium::WebDriver.for :firefox
   @driver.manage.window.maximize
   # Selenium::WebDriver.logger.level = :debug
