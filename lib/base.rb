@@ -8,7 +8,11 @@ class Base
     @driver = driver
   end
 
-  def visit(url='')
+  def refresh_page
+    driver.navigate.refresh
+  end
+
+  def visit(url='/')
     driver.get(ENV['base_url'] + url)
   end
 

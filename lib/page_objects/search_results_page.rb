@@ -47,10 +47,7 @@ class SearchResultsPage < Base
       hash['title'] = title
       hash['overview'] = overview
       hash['skills'] = skills_arr
-
-      @info_arr.push(hash)
     }
-    puts @info_arr
   end
 
   def freelancers_has_value?(search_term)
@@ -66,17 +63,9 @@ class SearchResultsPage < Base
   end
 
   def open_random_freelancer
-    # wait_for { displayed? FREELANCER_NAMES }
-
     links = find_all FREELANCER_LINKS
     length = links.length
     num = rand(1..length)
-    puts "num: #{num}"
-
-
-    # freelancer_box = find FREELANCER_BOX
-    # rand_freelancer = freelancer_box.find_element(:css => ":nth-child(#{num}) .freelancer-tile-name")
-    # wait_for { displayed? rand_freelancer }
     links[num].click
   end
 

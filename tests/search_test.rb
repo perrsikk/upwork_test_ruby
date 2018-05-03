@@ -18,8 +18,7 @@ run {
   results.open_random_freelancer
   freelancer_page = FreelancerPage.new(@driver)
   freelancer_page.get_freelancer_data
-
-  freelancer_page.is_freelancer_data_equal?.equal? true
+  freelancer_page.is_freelancer_data_equal?
 }
 
 end
