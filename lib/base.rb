@@ -43,6 +43,10 @@ class Base
     find(locator).text
   end
 
+  def wait(seconds=2)
+    Selenium::WebDriver::Wait.new(:timeout => seconds)
+  end
+
   def wait_for(seconds=10)
     Selenium::WebDriver::Wait.new(:timeout => seconds).until { yield }
   end

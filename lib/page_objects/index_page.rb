@@ -17,14 +17,10 @@ class IndexPage < Base
     submit SEARCH_BOX
   end
 
-  # def search_result_present?(search_result)
-  #   wait_for { displayed?(TOP_SEARCH_RESULT) }
-  #   text_of(TOP_SEARCH_RESULT).include? search_result
-  # end
-
   private
 
   def verify_page
+    page_loaded?
     wait_for { displayed?(BANNER) }
   end
 end

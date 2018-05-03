@@ -14,17 +14,8 @@ class FreelancerPage < Base
     verify_page
   end
 
-  def is_freelancer_data_equal?
-    get_freelancers_info
-    name = text_of NAME
-    @info_arr.each do |hash|
-      if hash['name'] == name
-        @freelancer_info_arr == hash
-      end
-    end
-  end
-
   def get_freelancers_info
+    wait
     @freelancer_info_arr = []
     skills_arr = []
 
@@ -52,6 +43,16 @@ class FreelancerPage < Base
     @freelancer_info_arr.push(hash)
 
     puts "info: #{@freelancer_info_arr}"
+  end
+
+  def is_freelancer_data_equal?
+    get_freelancers_info
+    name = text_of NAME
+    @info_arr.each do |hash|
+      if hash['name'] == name
+        @freelancer_info_arr == hash
+      end
+    end
   end
 
   private

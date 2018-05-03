@@ -12,12 +12,14 @@ class SearchResultsPage < Base
   FREELANCER_SKILLS = { css: '[data-log-label="tile_skill"] span' }
   FREELANCER_BOX = { css: '[data-qa="freelancer"]' }
 
+
   def initialize(driver)
     super
     verify_page
   end
 
   def get_freelancers_info
+    wait
     @info_arr = []
     skills_arr = []
 
@@ -66,8 +68,8 @@ class SearchResultsPage < Base
     length = @info_arr.length
     num = rand(1..length)
     puts "num: #{num}"
-    freelancer_box = find(FREELANCER_BOX)
-    rand_freelancer = freelancer_box.find_element(:css, ":nth-child(#{num}) .freelancer-tile-name")
+    freelancer_box = find FREELANCER_BOX
+    rand_freelancer = freelancer_box.find_element(:css => ":nth-child(#{num}) .freelancer-tile-name")
     rand_freelancer.click
   end
 
