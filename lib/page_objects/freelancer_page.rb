@@ -6,7 +6,7 @@ class FreelancerPage < Base
   FREELANCER_DATA = { css: 'div.media' }
   NAME = { css: '#optimizely-header-container-default [itemprop="name"]' }
   TITLE = { css: '[data-ng-if="vm.vpd.profile.title"] span.ng-binding' }
-  DESCRIPTION = { css: '.ng-hide[ng-show="open"]' }
+  DESCRIPTION = { css: '[words="80"] span[ng-show="!open"]' }
   SKILLS = { css: '[data-ng-repeat*="skill in items"]' }
 
   def initialize(driver)
@@ -15,6 +15,7 @@ class FreelancerPage < Base
   end
 
   def get_freelancer_data
+    wait 5
     skills_arr = []
 
     wait_for { displayed? FREELANCER_DATA }
@@ -24,7 +25,7 @@ class FreelancerPage < Base
     skills_ele = find_all SKILLS
 
     skills_ele.each { |skill|
-      skills = skill.text.split(',')
+      skills = skill.text
       skills_arr.push(skills)
     }
 
@@ -33,18 +34,18 @@ class FreelancerPage < Base
     @freelancer_data['title'] = title
     @freelancer_data['overview'] = overview
     @freelancer_data['skills'] = skills_arr
-
-    puts "Freelancer data: #{@freelancer_data}"
   end
 
   def is_freelancer_data_equal?
     name = text_of NAME
-    @info_arr.each do |hash|
-      puts "Hash from results: #{hash}"
-      if hash['name'] == name
-        puts "Test Passed: Data is present on the freelancer's page" if @freelancer_data == hash
-        else puts "Test Failed: Data isn't present on the freelancer's page"
-      end
+    hash = $info_arr.detect { |freelancer| freelancer["name"] == name }
+
+    if @freelancer_data['title'].include?(hash['title']) &&
+        (@freelancer_data['skills'] & hash['skills']).any? &&
+        @freelancer_data['overview'].include?(hash['overview'])
+    puts "Test Passed: Data is present on the freelancer's page"
+    else
+      puts "Test Failed: Data isn't present on the freelancer's page"
     end
   end
 

@@ -7,7 +7,7 @@ require_relative '../lib/page_objects/search_results_page'
 require_relative '../lib/page_objects/index_page'
 require_relative '../lib/page_objects/freelancer_page'
 
-search_term = 'Test'
+search_term = 'test'
 
 run {
   index = IndexPage.new(@driver)
